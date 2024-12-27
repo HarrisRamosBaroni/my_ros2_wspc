@@ -1,4 +1,4 @@
-FROM althack/ros2:humble-dev 
+FROM althack/ros2:humble-gazebo 
 
 # ** [Optional] Uncomment this section to install additional packages. **
 #
@@ -15,3 +15,8 @@ FROM althack/ros2:humble-dev
 # Set up auto-source of workspace for ros user
 ARG WORKSPACE
 RUN echo "if [ -f ${WORKSPACE}/install/setup.bash ]; then source ${WORKSPACE}/install/setup.bash; fi" >> /home/ros/.bashrc
+
+# Add the new commands to .bashrc
+RUN echo "export XDG_RUNTIME_DIR=/tmp/runtime-ros" >> /home/ros/.bashrc && \
+    echo "mkdir -p \$XDG_RUNTIME_DIR" >> /home/ros/.bashrc && \
+    echo "chmod 700 \$XDG_RUNTIME_DIR" >> /home/ros/.bashrc
