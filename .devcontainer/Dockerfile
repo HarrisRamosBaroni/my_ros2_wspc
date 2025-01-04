@@ -1,4 +1,4 @@
-FROM althack/ros2:jazzy-dev
+FROM althack/ros2:jazzy-gazebo 
 
 # ** [Optional] Uncomment this section to install additional packages. **
 #
@@ -15,3 +15,8 @@ FROM althack/ros2:jazzy-dev
 # Set up auto-source of workspace for ros user
 ARG WORKSPACE
 RUN echo "if [ -f ${WORKSPACE}/install/setup.bash ]; then source ${WORKSPACE}/install/setup.bash; fi" >> /home/ros/.bashrc
+
+# Set up a directory for runtime files dump which is writable by the ros user
+RUN echo "export XDG_RUNTIME_DIR=/tmp/runtime-ros" >> /home/ros/.bashrc && \
+    echo "mkdir -p \$XDG_RUNTIME_DIR" >> /home/ros/.bashrc && \
+    echo "chmod 700 \$XDG_RUNTIME_DIR" >> /home/ros/.bashrc
